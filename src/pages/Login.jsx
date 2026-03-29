@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { authAPI } from '../services/api';
 import toast from 'react-hot-toast';
@@ -9,8 +9,13 @@ const Login = () => {
   const [form, setForm] = useState({ email: '', password: '' });
   const [showPw, setShowPw] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { login } = useAuth();
+  const { login, user } = useAuth();
   const navigate = useNavigate();
+
+  // If already logged in, redirect them out of the login page
+  if (user) {
+    return <Navigate to={`/${user.role}`} replace />;
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
