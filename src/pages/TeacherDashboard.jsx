@@ -60,7 +60,13 @@ const TeacherDashboard = () => {
   const handleTestSubmit = async (e) => {
     e.preventDefault();
     try {
-      const payload = { ...testForm, year: parseInt(testForm.year), duration: parseInt(testForm.duration) };
+      const payload = { 
+        ...testForm, 
+        year: parseInt(testForm.year), 
+        duration: parseInt(testForm.duration),
+        startTime: new Date(testForm.startTime).toISOString(),
+        endTime: new Date(testForm.endTime).toISOString()
+      };
       if (editingTest) {
         await teacherAPI.updateTest(editingTest._id, payload);
         toast.success('Test updated!');
