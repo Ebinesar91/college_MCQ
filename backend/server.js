@@ -9,7 +9,7 @@ const app = express();
 connectDB();
 
 // Middleware
-app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
+app.use(cors({ origin: true, credentials: true })); // origin: true allows any origin
 app.use(express.json());
 
 // Routes
@@ -34,9 +34,11 @@ app.use((err, req, res, next) => {
   res.status(500).json({ success: false, message: err.message || 'Server Error' });
 });
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
-});
+if (process.env.NODE_ENV !== 'production') {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => {
+    console.log(`🚀 Server running on http://localhost:${PORT}`);
+  });
+}
 
 module.exports = app;
