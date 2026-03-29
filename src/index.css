@@ -2,6 +2,7 @@
 
 /* ─── CSS Variables ─────────────────────────────────────────────────── */
 :root {
+  color-scheme: dark;
   --bg: #0f0f1a;
   --surface: #1a1a2e;
   --surface2: #16213e;
